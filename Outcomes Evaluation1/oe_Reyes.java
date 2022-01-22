@@ -58,7 +58,7 @@ public class oe_Reyes {
 							System.out.print("Number you want to insert: ");
 							num = scan.nextInt();
 							
-							System.out.print("\nIndex you to insert (0 to " + (numbers.length) + "): ");
+							System.out.print("\nIndex you want to insert (0 to " + (numbers.length) + "): ");
 							index = scan.nextInt();
 								
 							if(index >= 0 && index <= numbers.length) {
