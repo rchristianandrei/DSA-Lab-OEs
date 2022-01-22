@@ -70,7 +70,7 @@ public class oe_Reyes {
 								}
 									
 								for(int i = numbers.length-1; i > index; i--) {
-									numbers[i+1] = numbers[i];
+									numbers[i] = numbers[i-1];
 								}
 									
 								numbers[index] = num;
