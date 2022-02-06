@@ -101,6 +101,7 @@ public class War {
 				{
 					// check first
 					handToPlay();
+					sortHand();
 					warSide.add(onPlay[0]);
 					warSide.add(enemy.pop());
 				}
