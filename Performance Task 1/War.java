@@ -86,9 +86,13 @@ public class War {
 			//	Compare on Play cards
 			compareCards();
 			
-			// Debugging winning condition
+			/* Debugging losing condition
 			player.clear();
 			playerSide.clear();
+			
+			// Debugging winning condition
+			enemy.clear();
+			enemySide.clear();*/
 			
 			//	War is going on
 			if(isWar)
@@ -126,12 +130,12 @@ public class War {
 				// Will check if game will continue or not
 				if(player.empty() && playerSide.isEmpty() && size == 0)
 				{
-					System.out.println("\nYou Lose the game!");
+					System.out.println("\nYou Lose the game! Enemy got all the cards..");
 					isPlaying = false;
 				}
 				else if(enemy.empty() && enemySide.isEmpty())
 				{
-					System.out.println("\nYou Win the game!");
+					System.out.println("\nEnemy have a total of 0 cards left.. You Win the game!");
 					isPlaying = false;
 				}
 				else
@@ -281,10 +285,6 @@ public class War {
 			}	
 		}
 		
-		//	Enemy card on play
-		onPlay[1] = enemy.pop();
-		warSide.add(onPlay[1]);
-		
 		//	Displaying No. of Cards to win
 		System.out.println("Cards to win: " + warSide.size());
 	}
@@ -345,6 +345,10 @@ public class War {
 			isWar = false;
 			isPlaying = false;
 		}
+		
+		//	Enemy card on play
+		onPlay[1] = enemy.pop();
+		warSide.add(onPlay[1]);
 	}
 		
 	private static void prepareCards()
@@ -359,4 +363,4 @@ public class War {
 		}
 	}
 
-}	//	End of classccd
+}	//	End of classcd
