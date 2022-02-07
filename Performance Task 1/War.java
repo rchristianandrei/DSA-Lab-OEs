@@ -284,9 +284,6 @@ public class War {
 					notValid = true;
 			}	
 		}
-		
-		//	Displaying No. of Cards to win
-		System.out.println("Cards to win: " + warSide.size());
 	}
 	
 	private static void sortHand()
@@ -349,6 +346,9 @@ public class War {
 		//	Enemy card on play
 		onPlay[1] = enemy.pop();
 		warSide.add(onPlay[1]);
+		
+		//	Displaying No. of Cards to win
+		System.out.println("Cards to win: " + warSide.size());
 	}
 		
 	private static void prepareCards()
@@ -363,4 +363,4 @@ public class War {
 		}
 	}
 
-}	//	End of classcd
+}	//	End of class
