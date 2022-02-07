@@ -6,7 +6,7 @@ import java.util.LinkedList;
 public class War {
 	
 	//	Initialize needed objects
-	public static int size = 0;
+	public static int size = 3;
 	public static int round = 1;
 	
 	public static boolean isWon = true;
@@ -74,8 +74,9 @@ public class War {
 		while(isPlaying) //	Will loop if game is going on
 		{
 			//	Show current round
-			System.out.println("\n#-----[Round: " + round + " | Cards on Deck: " + player.size() + " | Cards on Side: " + playerSide.size() + "]-----#\n");
-				
+			System.out.println("\n#-----[Round: " + round + " | Cards on Deck: " + player.size() + " | Cards on Hand: " + size + " | Cards on Side: " + playerSide.size() + "]-----#");
+			System.out.println("\n#-----[Enemy Cards on Deck: " + enemy.size() + " | Enemy Cards on Side: " + enemySide.size() + "]-----#\n");
+			
 			//	Choosing card to play
 			handToPlay();
 				
@@ -84,16 +85,14 @@ public class War {
 				
 			//	Compare on Play cards
 			compareCards();
-				
+			
+			// Debugging winning condition
+			player.clear();
+			playerSide.clear();
+			
 			//	War is going on
-			while(isWar)
+			if(isWar)
 			{
-				// Check the size of enemy deck
-				if(enemy.size() < 2)
-				{
-					populateEnemyDeck();
-				}
-					
 				//	Dropping 2 cards each
 				System.out.println("\nDropping 2 cards from deck each player...\n");
 					
@@ -102,74 +101,50 @@ public class War {
 					// check first
 					handToPlay();
 					sortHand();
-					warSide.add(onPlay[0]);
-					warSide.add(enemy.pop());
 				}
-					
-				//	Display no. of cards to get
-				System.out.println("Number of cards to win: " + warSide.size() + "\n");
+
+			}
+			
+			if(!isWar)
+			{
+				//	Get your prizes!
+				if(isWon)
+				{
+					while(!warSide.isEmpty())
+					{
+						playerSide.add(warSide.poll());
+					}
+				}
+				else
+				{
+					while(!warSide.isEmpty())
+					{
+						enemySide.add(warSide.poll());
+					}
+				}		
 				
-				//	Show current round
-				System.out.println("\n#-----[Round: " + round + " | Cards on Deck: " + player.size() + " | Cards on Side: " + playerSide.size() + "]-----#\n");
-						
-				//	Choosing card to play
-				handToPlay();
-						
-				// Draw 1 card
-				sortHand();
-						
-				//	Compare on Play cards
-				compareCards();
+				// Will check if game will continue or not
+				if(player.empty() && playerSide.isEmpty() && size == 0)
+				{
+					System.out.println("\nYou Lose the game!");
+					isPlaying = false;
+				}
+				else if(enemy.empty() && enemySide.isEmpty())
+				{
+					System.out.println("\nYou Win the game!");
+					isPlaying = false;
+				}
+				else
+				{
+					//	Increment round
+					round++;
 					
-				//	Check enemy deck
-				if(enemy.empty())
-				{
-					populateEnemyDeck();
+					//	Prompt
+					System.out.print("\nReady for next round? [Enter anything except nothing]:");
+					in.next();
+					isPlaying = true;
 				}
-			}
-			
-				//	Check enemy deck
-			if(enemy.empty())
-			{
-				populateEnemyDeck();
-			}
-			
-			//	Get your prizes!
-			if(isWon)
-			{
-				while(!warSide.isEmpty())
-				{
-					playerSide.add(warSide.remove());
-				}
-			}
-			else
-			{
-				while(!warSide.isEmpty())
-				{
-					enemySide.add(warSide.remove());
-				}
-			}		
-			
-			// Will check if game will continue or not
-			if(player.empty() && playerSide.isEmpty() && size == 0)
-			{
-				System.out.println("\nYou Lose the game!");
-				isPlaying = false;
-			}
-			else if(enemy.isEmpty() && enemySide.isEmpty())
-			{
-				System.out.println("\nYou Win the game!");
-				isPlaying = false;
-			}
-			else
-			{
-				//	Increment round
-				round++;
 				
-				//	Prompt
-				System.out.print("\nReady for next round? [Enter anything except nothing]:");
-				in.next();
-				isPlaying = true;
 			}
 			
 		}	//	-------------	End of loop	-----------------
@@ -178,13 +153,14 @@ public class War {
 	
 	private static void populateEnemyDeck()
 	{
-		if(enemy.size() < 1)
+		if(enemy.empty())
 		{
-			System.out.println("Enemy run out of cards on Deck! Populating deck with cards enemy won earlier");
+			System.out.println("\nEnemy run out of cards on Deck! Populating deck with cards enemy won earlier");
 			while(!enemySide.isEmpty())
 			{
-				enemy.push(enemySide.remove());
+				enemy.push(enemySide.poll());
 			}
+			System.out.println("Enemy Deck: " + enemy.size());
 		}
 	}
 
@@ -207,7 +183,7 @@ public class War {
 			case "8":		playerCard = 8; break;
 			case "7":		playerCard = 7; break;
 			case "6":		playerCard = 6; break;
-			case "5":		playerCard = 6; break;
+			case "5":		playerCard = 5; break;
 			case "4":		playerCard = 4; break;
 			case "3":		playerCard = 3; break;
 			case "2":		playerCard = 2; break;
@@ -225,7 +201,7 @@ public class War {
 			case "8":		enemyCard = 8; break;
 			case "7":		enemyCard = 7; break;
 			case "6":		enemyCard = 6; break;
-			case "5":		enemyCard = 6; break;
+			case "5":		enemyCard = 5; break;
 			case "4":		enemyCard = 4; break;
 			case "3":		enemyCard = 3; break;
 			case "2":		enemyCard = 2; break;
@@ -273,6 +249,14 @@ public class War {
 			
 			chosenCard = in.nextInt();
 			
+			if(chosenCard > 2 && chosenCard < 0)
+			{
+				if(onHand[chosenCard] == null)
+				{
+					chosenCard = -1;
+				}
+			}
+			
 			//	Player card on play
 			switch(chosenCard)
 			{
@@ -296,12 +280,13 @@ public class War {
 					notValid = true;
 			}	
 		}
-			
+		
 		//	Enemy card on play
 		onPlay[1] = enemy.pop();
 		warSide.add(onPlay[1]);
 		
-		//	Populating cards to win
+		//	Displaying No. of Cards to win
+		System.out.println("Cards to win: " + warSide.size());
 	}
 	
 	private static void sortHand()
@@ -316,41 +301,52 @@ public class War {
 			}
 		}
 		
-		for(int i = 0; i < size; i++)
+		// Sort
+		for(int i = 0; i < 2; i++)
 		{
 			if(onHand[i] == null)
 			{
-				while(i < size)
+				if(onHand[i+1] != null)
 				{
-					if(onHand[i+1] != null)
-						onHand[i] = onHand[i+1];
-					i++;
+					onHand[i] = onHand[i+1];
+					onHand[i+1] = null;
 				}
 			}
 		}
 
-		populatePlayerDeck();
+		if(player.empty() && !playerSide.isEmpty())
+		{
+			System.out.println("You run out of cards on deck! Populating using cards you won earlier...");
+			
+			while(!playerSide.isEmpty())
+			{
+				player.push(playerSide.poll());
+			}
+		}
+		else if(player.empty() && playerSide.isEmpty())
+		{
+			isWar = false;
+			isPlaying = false;
+		}
 
 		if(!player.empty())
 		{
 			System.out.println("\nDrawing 1 card..");
 			onHand[size] = player.pop();
-		}		
-	}
-	
-	private static void populatePlayerDeck()
-	{
-		if(player.empty() && !playerSide.isEmpty())
+			size++;
+		}
+		
+		if(enemy.empty() && !enemySide.isEmpty())
 		{
-			System.out.println("You run our of cards on deck! Populating using cards you won earlier...");
-			
-			while(!playerSide.isEmpty())
-			{
-				player.push(playerSide.remove());
-			}
+			populateEnemyDeck();
+		}
+		else if (enemy.empty() && enemySide.isEmpty())
+		{
+			isWar = false;
+			isPlaying = false;
 		}
 	}
-	
+		
 	private static void prepareCards()
 	{
 		for(int i = 0; i < 26; i++)
