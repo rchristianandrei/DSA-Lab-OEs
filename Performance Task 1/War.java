@@ -359,4 +359,4 @@ public class War {
 		}
 	}
 
-}	//	End of class
+}	//	End of classccd
