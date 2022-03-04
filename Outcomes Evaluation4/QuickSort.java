@@ -30,6 +30,9 @@ public class QuickSort {
 			System.out.println(number);
 		}
 		
+        System.out.println("Minimum value " + numbers[0]);
+        System.out.println("Maximum value "+ numbers[numbers.length-1]);
+
 		in.close();
 		
 	}
