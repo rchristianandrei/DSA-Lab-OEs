@@ -126,7 +126,7 @@ class Tree{
 		System.out.println();
 	}
 	
-	public void InOrder(Node parent) {
+	private void InOrder(Node parent) {
 		
 		if(parent.leftNode != null)
 			InOrder(parent.leftNode);
@@ -156,7 +156,7 @@ class Tree{
 		System.out.println();
 	}
 	
-	public void PreOrder(Node parent){
+	private void PreOrder(Node parent){
 		
 		System.out.print(" " + parent.data);
 		
@@ -168,7 +168,7 @@ class Tree{
 	}
 	
 	public void PostOrder() {
-if(this.root != null) {
+		if(this.root != null) {
 			
 			System.out.print("Post-Order: ");
 			
@@ -187,7 +187,7 @@ if(this.root != null) {
 		System.out.println();
 	}
 	
-	public void PostOrder(Node parent) {
+	private void PostOrder(Node parent) {
 		
 		if(parent.leftNode != null)
 			PostOrder(parent.leftNode);
