@@ -296,10 +296,10 @@ class Tree{
 			
 			System.out.println("Deleted!");
 		}
-		else if(target > this.root.data)
+		else if(target > parent.data)
 			
 			if(parent.rightNode != null)
-				Delete(target, this.root.rightNode);
+				Delete(target, parent.rightNode);
 			else
 				System.out.println("Target does not exist.");
 		else 
