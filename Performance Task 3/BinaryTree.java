@@ -265,7 +265,7 @@ class Tree{
 				else
 					this.root = null;
 				
-				System.out.println("Deleted!.");
+				System.out.println("Deleted!");
 			}
 			else if(target > this.root.data)
 				
@@ -294,7 +294,7 @@ class Tree{
 			else
 				parent = null;
 			
-			System.out.println("Deleted!.");
+			System.out.println("Deleted!");
 		}
 		else if(target > this.root.data)
 			
