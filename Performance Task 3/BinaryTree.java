@@ -155,6 +155,9 @@ class Tree{
 		
 		if(current != null) {
 			
+			if(current.data == null)
+				return;
+			
 			if(current.leftNode != null)
 				InOrder(current.leftNode);
 					
@@ -172,6 +175,9 @@ class Tree{
 		
 		if(current != null) {
 			
+			if(current.data == null)
+				return;
+			
 			System.out.print(current.data + " ");
 			
 			if(current.leftNode != null)
@@ -187,6 +193,9 @@ class Tree{
 	public void PostOrder(Node current) {
 		
 		if(current != null) {
+			
+			if(current.data == null)
+				return;
 			
 			if(current.leftNode != null)
 				PostOrder(current.leftNode);
