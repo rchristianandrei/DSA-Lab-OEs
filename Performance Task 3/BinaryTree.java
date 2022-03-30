@@ -36,15 +36,30 @@ public class BinaryTree {
 					
 					tree.Insert(new Node(dataInput));
 					break;
-				case 2: tree.PreOrder(); break;
-				case 3: tree.InOrder(); break;
-				case 4: tree.PostOrder(); break;
+				case 2: 
+					System.out.print("Pre-Order: ");
+					tree.PreOrder(tree.GetRoot());
+					System.out.println();
+					System.out.println();
+					break;
+				case 3: 
+					System.out.print("In-Order: ");
+					tree.InOrder(tree.GetRoot());
+					System.out.println();
+					System.out.println();
+					break;
+				case 4: 
+					System.out.print("Post-Order: ");
+					tree.PostOrder(tree.GetRoot());
+					System.out.println();
+					System.out.println();
+					break;
 				case 5: 
 					
 					System.out.print("Input target to find: ");
 					dataInput = in.nextInt();
 					
-					System.out.println("Is your number in the Tree?: " + tree.Search(dataInput));
+					System.out.println("Is your number in the Tree?: " + tree.Search(dataInput, tree.GetRoot()));
 					System.out.println();
 					break;
 				case 6: 
@@ -52,7 +67,7 @@ public class BinaryTree {
 					System.out.print("Input target to delete: ");
 					dataInput = in.nextInt();
 				
-					tree.Delete(dataInput);
+					tree.Delete(dataInput, tree.GetRoot());
 					System.out.println();
 					break;
 				case 7: ongoing = false; break;
@@ -68,25 +83,37 @@ public class BinaryTree {
 
 class Node{
 	
-	int data;
-	Node leftNode = null;
-	Node rightNode = null;
+	Integer data;
+	Node leftNode;
+	Node rightNode;
 	
+	Node(){
+		this.data = null;
+		leftNode = null;
+		rightNode = null;
+	}
 	Node(int data){
 		this.data = data;
+		leftNode = null;
+		rightNode = null;
 	}
 }
 
 class Tree{
 	
-	Node root = null;
+	private Node root = null;
+	
+	public Node GetRoot() {
+		return root;
+	}
 	
 	public void Insert(Node node){
 		
-		if(this.root == null) {
-			
+		if(this.root == null)
 			this.root = node;
-		}else {
+		else if(this.root.data == null)
+			this.root.data = node.data;
+		else {
 			
 			Node current = this.root;
 			boolean occupied = true;
@@ -99,7 +126,8 @@ class Tree{
 					
 					if(current.rightNode == null)
 						current.rightNode = node;
-					
+					else if(current.rightNode.data == null)
+						current.rightNode.data = node.data;
 					else {
 						
 						current = current.rightNode;
@@ -109,7 +137,8 @@ class Tree{
 					
 					if(current.leftNode == null)
 						current.leftNode = node;
-					
+					else if(current.leftNode.data == null)
+						current.leftNode.data = node.data;
 					else {
 						
 						current = current.leftNode;
@@ -122,190 +151,111 @@ class Tree{
 		System.out.println();
 	}
 	
-	public void InOrder() {
+	public void InOrder(Node current) {
 		
-		if(this.root != null) {
+		if(current != null) {
 			
-			System.out.print("In-Order: ");
+			if(current.leftNode != null)
+				InOrder(current.leftNode);
+					
+			System.out.print(current.data + " ");
 			
-			if(this.root.leftNode != null)
-				InOrder(this.root.leftNode);
-			
-			System.out.print(root.data + " ");
-			
-			if(this.root.rightNode != null)
-				InOrder(this.root.rightNode);
+			if(current.rightNode != null)
+				InOrder(current.rightNode);
 			
 		}
 		else
 			System.out.print("Root is null.");
-		
-		System.out.println();
-		System.out.println();
 	}
 	
-	private void InOrder(Node parent) {
+	public void PreOrder(Node current){
 		
-		if(parent.leftNode != null)
-			InOrder(parent.leftNode);
-				
-		System.out.print(parent.data + " ");
-		
-		if(parent.rightNode != null)
-			InOrder(parent.rightNode);
-	}
-	
-	public void PreOrder(){
-		
-		if(this.root != null) {
+		if(current != null) {
 			
-			System.out.print("Pre-Order: " + this.root.data);
+			System.out.print(current.data + " ");
 			
-			if(this.root.leftNode != null)
-				PreOrder(this.root.leftNode);
+			if(current.leftNode != null)
+				PreOrder(current.leftNode);
 			
-			if(this.root.rightNode != null)
-				PreOrder(this.root.rightNode);
+			if(current.rightNode != null)
+				PreOrder(current.rightNode);
 		}
 		else
 			System.out.print("Root is null.");
-		
-		System.out.println();
-		System.out.println();
 	}
 	
-	private void PreOrder(Node parent){
+	public void PostOrder(Node current) {
 		
-		System.out.print(" " + parent.data);
-		
-		if(parent.leftNode != null)
-			PreOrder(parent.leftNode);
-		
-		if(parent.rightNode != null)
-			PreOrder(parent.rightNode);
-	}
-	
-	public void PostOrder() {
-		if(this.root != null) {
+		if(current != null) {
 			
-			System.out.print("Post-Order: ");
+			if(current.leftNode != null)
+				PostOrder(current.leftNode);
 			
-			if(this.root.leftNode != null)
-				PostOrder(root.leftNode);
+			if(current.rightNode != null)
+				PostOrder(current.rightNode);
 			
-			if(this.root.rightNode != null)
-				PostOrder(root.rightNode);
-			
-			System.out.print(root.data + " ");
+			System.out.print(current.data + " ");
 		}
 		else
 			System.out.print("Root is null.");
-		
-		System.out.println();
-		System.out.println();
 	}
 	
-	private void PostOrder(Node parent) {
+	public boolean Search(int target, Node current) {
 		
-		if(parent.leftNode != null)
-			PostOrder(parent.leftNode);
-		
-		if(parent.rightNode != null)
-			PostOrder(parent.rightNode);
-		
-		System.out.print(parent.data + " ");
-	}
-	
-	public boolean Search(int target) {
-		
-		if(this.root != null) {
-			if(target == this.root.data)
+		if(current != null) {
+			
+			if(target == current.data)
 				return true;
-			else if(target > this.root.data)	
-				if(this.root.rightNode != null)
-					return Search(target, this.root.rightNode);
+			else if(target > this.root.data)
+				if(current.rightNode != null)
+					return Search(target, current.rightNode);
 				else
 					return false;
-			else 
-				if(this.root.leftNode != null)
-					return Search(target, this.root.leftNode);
+			else
+				if(current.leftNode != null)
+					return Search(target, current.leftNode);
 				else
 					return false;
 		}
 		else
 			return false;
-		
 	}
 	
-	private boolean Search(int target, Node parent) {
+	public void Delete(int target, Node current) {
 		
-		if(target == parent.data)
-			return true;
-		else if(target > this.root.data)
-			if(parent.rightNode != null)
-				return Search(target, parent.rightNode);
-			else
-				return false;
-		else
-			if(parent.leftNode != null)
-				return Search(target, parent.leftNode);
-			else
-				return false;
-	}
-	
-	public void Delete(int target) {
-		
-		if(this.root != null) {
-			if(target == this.root.data) {
+		if(current != null) {
+			
+			if(target == current.data) {
 				
-				if(this.root.rightNode != null) 
-					this.root = this.root.rightNode;
-				else if(this.root.leftNode != null) 
-					this.root = this.root.leftNode;
+				if(current.rightNode != null) {
+					
+					current.data = current.rightNode.data;
+					if(current.rightNode.rightNode != null)
+						Delete(current.rightNode.data, current.rightNode);
+					else if(current.rightNode.leftNode != null)
+						Delete(current.rightNode.data, current.leftNode);
+					else
+						current.rightNode = new Node();
+				}
+				else if(current.leftNode != null) {
+					
+					current.data = current.leftNode.data;
+					if(current.leftNode.rightNode != null)
+						Delete(current.leftNode.data, current.rightNode);
+					else if(current.leftNode.leftNode != null)
+						Delete(current.leftNode.data, current.leftNode);
+					else
+						current.leftNode = new Node();
+				}
 				else
-					this.root = null;
-				
-				System.out.println("Deleted!");
+					current.data = null;
 			}
-			else if(target > this.root.data)
-				
-				if(this.root.rightNode != null)
-					Delete(target, this.root.rightNode);
-				else
-					System.out.println("Target does not exist.");
-			else 
-				if(this.root.leftNode != null)
-					Delete(target, this.root.leftNode);
-				else
-					System.out.println("Target does not exist.");
+			else if(target > current.data)
+				Delete(target, current.rightNode);
+			else
+				Delete(target, current.leftNode);
 		}
 		else
 			System.out.println("Target does not exist.");
-	}
-	
-	private void Delete(int target, Node parent) {
-		
-		if(target == parent.data) {
-			
-			if(parent.rightNode != null) 
-				parent = parent.rightNode;
-			else if(parent.leftNode != null) 
-				parent = parent.leftNode;
-			else
-				parent = null;
-			
-			System.out.println("Deleted!");
-		}
-		else if(target > parent.data)
-			
-			if(parent.rightNode != null)
-				Delete(target, parent.rightNode);
-			else
-				System.out.println("Target does not exist.");
-		else 
-			if(parent.leftNode != null)
-				Delete(target, parent.leftNode);
-			else
-				System.out.println("Target does not exist.");
 	}
 }
