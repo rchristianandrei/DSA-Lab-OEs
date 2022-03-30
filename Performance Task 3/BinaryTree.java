@@ -66,8 +66,8 @@ public class BinaryTree {
 					
 					System.out.print("Input target to delete: ");
 					dataInput = in.nextInt();
-				
-					tree.Delete(dataInput, tree.GetRoot());
+					
+					System.out.println("Is your number deleted?: " + tree.Delete(dataInput, tree.GetRoot()));
 					System.out.println();
 					break;
 				case 7: ongoing = false; break;
@@ -230,7 +230,7 @@ class Tree{
 			return false;
 	}
 	
-	public void Delete(int target, Node current) {
+	public boolean Delete(int target, Node current) {
 		
 		if(current != null) {
 			
@@ -240,9 +240,9 @@ class Tree{
 					
 					current.data = current.rightNode.data;
 					if(current.rightNode.rightNode != null)
-						Delete(current.rightNode.data, current.rightNode);
+						return Delete(current.rightNode.data, current.rightNode);
 					else if(current.rightNode.leftNode != null)
-						Delete(current.rightNode.data, current.leftNode);
+						return Delete(current.rightNode.data, current.leftNode);
 					else
 						current.rightNode = new Node();
 				}
@@ -250,21 +250,23 @@ class Tree{
 					
 					current.data = current.leftNode.data;
 					if(current.leftNode.rightNode != null)
-						Delete(current.leftNode.data, current.rightNode);
+						return Delete(current.leftNode.data, current.rightNode);
 					else if(current.leftNode.leftNode != null)
-						Delete(current.leftNode.data, current.leftNode);
+						return Delete(current.leftNode.data, current.leftNode);
 					else
 						current.leftNode = new Node();
 				}
 				else
 					current.data = null;
+				
+				return true;
 			}
 			else if(target > current.data)
-				Delete(target, current.rightNode);
+				return Delete(target, current.rightNode);
 			else
-				Delete(target, current.leftNode);
+				return Delete(target, current.leftNode);
 		}
 		else
-			System.out.println("Target does not exist.");
+			return false;
 	}
 }
