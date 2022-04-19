@@ -56,7 +56,7 @@ namespace ElderNecklace
             {
                 this.maxhealth = 120f * Characters.level;
                 this.health = 120f * Characters.level;
-                this.attack = 20f * Characters.level;
+                this.attack = 30f * Characters.level;
                 this.defence = 70f * Characters.level;
                 this.critRate = 0.3f * Characters.level;
                 this.critDamage = 1f * Characters.level;
