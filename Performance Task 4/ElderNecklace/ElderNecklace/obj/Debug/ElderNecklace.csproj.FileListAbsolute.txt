@@ -1,0 +1,7 @@
+C:\Users\rchri\source\repos\ElderNecklace\ElderNecklace\bin\Debug\ElderNecklace.exe.config
+C:\Users\rchri\source\repos\ElderNecklace\ElderNecklace\bin\Debug\ElderNecklace.exe
+C:\Users\rchri\source\repos\ElderNecklace\ElderNecklace\bin\Debug\ElderNecklace.pdb
+C:\Users\rchri\source\repos\ElderNecklace\ElderNecklace\obj\Debug\ElderNecklace.csproj.AssemblyReference.cache
+C:\Users\rchri\source\repos\ElderNecklace\ElderNecklace\obj\Debug\ElderNecklace.csproj.CoreCompileInputs.cache
+C:\Users\rchri\source\repos\ElderNecklace\ElderNecklace\obj\Debug\ElderNecklace.exe
+C:\Users\rchri\source\repos\ElderNecklace\ElderNecklace\obj\Debug\ElderNecklace.pdb
